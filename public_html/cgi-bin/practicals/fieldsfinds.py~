@@ -1,0 +1,46 @@
+#!/usr/bin/env python3
+import cgi
+import cgitb
+cgitb.enable(format='text')
+from jinja2 import Environment, FileSystemLoader
+import cx_Oracle
+import folium
+
+
+def htmlFields():
+    with open ("/s1880452/public_html/password.txt", 'r') as pwf:
+        pw=pwf.read().strip()
+        conn = cx_Oracle.connect(dsn="geosgen",user="s1880452",password=pw)
+    a = conn.cursor()
+    a.execute("select * from gisteach.fields")
+    fields = ''
+    for row in a:
+        fields = fields + '<polygon id="field'+ str(row[0])+'" points="'+ str(row[1])+ ',' + str(row[2]) + ' ' + str(row[1]) + ',' + str(row[4]) + ' ' + str(row[3]) + ',' + str(row[4]) + ' ' + str(row[3]) + ',' + str(row[2]) +'" fill="DarkOliveGreen" fill-opacity="0.5" stroke="black" stroke-width="0.05"<title> Field '+str(row[0]) +'</title></polygon>'
+    conn.close()
+    return fields
+
+
+def htmlFinds():
+    with open ("/s1880452/public_html/password.txt", 'r') as pwf:
+        pw=pwf.read().strip()
+        conn = cx_Oracle.connect(dsn="geosgen",user="s1880452", password=pw)
+    b = conn.cursor()
+    b.execute("select * from gisteach.finds")
+    finds=''
+    for row in b:
+        finds = finds + '<circle id="find'+ str(row[0])+'" cx="'+str(row[1])+'" cy="'+str(row[2])+'" r="0.1" fill="black" stroke="black" stroke-width="0.05" fill-opacity="0.5" <title>Find '+str(row[0]) + '</title></circle>'
+    conn.close()
+    return finds
+    
+    #render the template
+def print_html():
+    env = Environment(loader=FileSystemLoader('.'))
+    temp = env.get_template('fieldsfinds.html')
+    Fields = htmlFields()
+    Finds = htmlFinds()
+    print(temp.render(SVGfields=Fields, SVGfinds=Finds))
+    
+#run
+if __name__ == '__main__':
+    print_html()
+

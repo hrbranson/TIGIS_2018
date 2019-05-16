@@ -1,0 +1,179 @@
+Content-Type: text/html
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+    <!-- My CSS -->
+    <link rel="stylesheet" type="text/css" href="../webmapstyle.css">
+
+    <!-- Defining title of page -->
+    <title>Fields and Finds</title>
+  </head>
+  <body>
+    <!-- Container fluid allowing the website content to scale to screen size -->
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Header -->
+        <div class="col-md-12 bg-light">
+          <h1 class="text-center w-100">Archaelogical Finds in Agricultural Fields</h1>
+          <p class="text-center lead w-100">
+            A web mapping service showing archaeological finds in Farmers' fields.
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <!-- sidebar -->
+        <div class="col-md-3 sidebar">
+          <h3>Search our database:</h3>
+          <p class = "text-center">
+            To filter finds by type, select a find type from the selection below to locate on the map.
+          </p>
+          <!-- Dropdown menu -->
+          <form action="./main.py" method="post">
+            <div class="form-group">
+                <label for="type">Type of find:</label>
+              <select class="form-control" id="type" name="type">
+                {{TypeOptions}}
+              </select>
+            </div>
+            <input class="btn btn-primary" type="submit" value="Search">
+          </form>
+
+          <p class="text-center w-100 help">
+            Hover over each field for the field ID, ownership and crop information.
+          </p>
+          <p class="text-center w-100 help">
+            To see additional information including the field notes, click on a find.
+          </p>
+
+          <!-- SVG for legend box in sidebar -->
+          <svg id="legend" width="100%" height="32%" viewbox = "0 0 6 4">
+
+            <g transform="scale(1, 1)">
+              <rect x="0.25" y="0" width="5.5" height="3.5" fill="#f2f2f2" stroke="black" stroke-width="0.03" />
+            </g>
+
+            <rect x="0.5" y="0.6" width="0.7" height="0.7" fill="#8cd98c" stroke="black" stroke-width="0.04" />
+            <circle cx="4" cy="1" r="0.2" fill="#8cd98c" />
+            <circle cx="0.85" cy="2.9" r="0.2" fill="#007bff" />
+            <circle cx="0.85" cy="1.9" r="0.2" fill="#28a745" />
+            <circle cx="4" cy="2.9" r="0.2" fill="#dc3545" />
+            <circle cx="4" cy="1.9" r="0.2" fill="#ffc107" />
+
+            <text x="2.3" y="0.4" fill="black" font-size="0.45">
+              Legend
+              <tspan x="1.55" y="0.9" fill="black" font-size="0.35">Field<tspan/>
+              <tspan x="1.3" y="1.3" fill="black" font-size="0.35">boundary<tspan/>
+              <tspan x="4.4" y="1.1" fill="black" font-size="0.35">Find<tspan/>
+              <tspan x="1.3" y="3.05" fill="black" font-size="0.35">Shard<tspan/>
+              <tspan x="1.3" y="2.05" fill="black" font-size="0.35">Metal work<tspan/>
+              <tspan x="4.4" y="3.05" fill="black" font-size="0.35">Flint<tspan/>
+              <tspan x="4.4" y="2.05" fill="black" font-size="0.35">Bone<tspan/>
+            </text>
+          </svg>
+        </div>
+
+        <!-- main map area -->
+        <div class="col-md-9 map-area bg-light">
+          <div class="card">
+            <div class="card-body">
+              <svg id="map" width="66%" height="66%" viewBox = "-0.5 -16.25 17 17">
+                <defs>
+                  <pattern id="fieldimage" x="0" y="0" height="40" width="40" patternUnits="userSpaceOnUse">
+                    <image xlink:href="../fields.jpg" x="-16" y="-11.5" height="40" width="40" />
+                  </pattern>
+                </defs>
+
+                <g transform="scale(1 -1)">
+                  <rect x="0" y="0" width="16" height="16" fill="#f2f2f2" stroke="black" stroke-width="0.04"></rect>
+                </g>
+
+                <!-- X-Axis coordinates -->
+                <text x="-0.1" y="0.5" font-size="0.4px">0</text>
+                <text x="1.9" y="0.5" font-size="0.4px">2</text>
+                <text x="3.9" y="0.5" font-size="0.4px">4</text>
+                <text x="5.9" y="0.5" font-size="0.4px">6</text>
+                <text x="7.9" y="0.5" font-size="0.4px">8</text>
+                <text x="9.9" y="0.5" font-size="0.4px">10</text>
+                <text x="11.9" y="0.5" font-size="0.4px">12</text>
+                <text x="13.9" y="0.5" font-size="0.4px">14</text>
+                <text x="15.9" y="0.5" font-size="0.4px">16</text>
+
+                <!-- Y-Axis coordinates -->
+                <text x="-0.5" y="0.1" font-size="0.4px">0</text>
+                <text x="-0.5" y="-1.9" font-size="0.4px">2</text>
+                <text x="-0.5" y="-3.9" font-size="0.4px">4</text>
+                <text x="-0.5" y="-5.9" font-size="0.4px">6</text>
+                <text x="-0.5" y="-7.9" font-size="0.4px">8</text>
+                <text x="-0.5" y="-9.9" font-size="0.4px">10</text>
+                <text x="-0.5" y="-11.9" font-size="0.4px">12</text>
+                <text x="-0.5" y="-13.9" font-size="0.4px">14</text>
+                <text x="-0.5" y="-15.9" font-size="0.4px">16</text>
+
+                <!-- SVG for fields and finds -->
+                <g transform="scale(1 -1)">
+                  <svg id="map" width="16" height="16" viewBox = "0 0 16 16">
+                    {{SVGfields}}
+                  </svg>
+                </g>
+
+                <g transform="scale(1 -1)">
+                  <svg id="map" width="16" height="16" viewBox = "0 0 16 16">
+                    {{SVGfinds}}
+                  </svg>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="row footer">
+          <div class="col-md-12">
+            <p class="text-center w-100 m-0">
+              This website is part of the Technological Infrastructures for GIS project for the University of Edinburgh
+            </p>
+              <p class="text-center w-100"><small>
+                If there are any problems, contact s1880452@ed.ac.uk.
+            </small></p>
+          </div>
+        </div>
+
+      <div class="modal fade" id="findModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      </div>
+
+      <!-- Script for making call to Ajax, clicking on find -->
+      <script>
+        $(document).on('click', '.show-find', function(e) {
+          // don't do standard click action
+          e.preventDefault();
+
+          findId = $(this).attr('data-id');
+
+          // fetch find modal from server
+          $.ajax({
+            url: "find.py",
+            type: "GET",
+            data: "findId=" + findId,
+            beforeSend: function(xhr, settings) {
+              // accept any type of response from the server and accept javascript for execution
+              xhr.setRequestHeader('accept', '*/*;q=0.5, ' + settings.accepts.script);
+            }
+          });
+        });
+      </script>
+    </div>
+  </body>
+</html>

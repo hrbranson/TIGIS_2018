@@ -1,0 +1,25 @@
+/* CSS Document */
+
+.sidebar {
+  background: #c2d1f0;
+  padding: 2em;
+  text-align: center;
+}
+
+.map-area {
+  text-align: center;
+}
+
+.help {
+  margin-top: 1em;
+}
+
+.footer {
+  background: #d9d9d9;
+  padding: 1em;
+  text-align: center;
+}
+
+.map-area .card {
+  margin-bottom: 1em;
+}

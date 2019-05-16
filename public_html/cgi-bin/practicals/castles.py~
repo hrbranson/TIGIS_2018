@@ -1,0 +1,16 @@
+#!/usr/bin/env python3
+import cgitb
+cgitb.enable(format='text')
+from jinja2 import Environment, FileSystemLoader
+
+#render the template
+def print_html():
+    env = Environment(loader=FileSystemLoader('.'))
+    temp = env.get_template('castles.html')
+    inpName = 'Hattie'
+
+    print(temp.reder(name = inpName))
+
+#run
+if __name__ = '__main__':
+    print_html()

@@ -1,0 +1,53 @@
+#!/usr/bin/env python3
+import cgi
+import cgitb
+cgitb.enable()
+print("Content-Type: text/html\n")
+print("<!DOCTYPE html>")
+
+print("<head><title>Fields and Finds</title>")
+print('<link rel="stylesheet" type="text/css" href="../webmapstyle.css">')
+print('<link href="https://fonts.googleapis.com/css?family=Cabin|Palanquin+Dark" rel="stylesheet"></head>')
+print("<body>")
+print("<h1>Archaeological Finds in Agricultural Fields</h1>")
+print("<p>A web mapping service that shows archaeological finds in agricultural fields.</br>")
+print("Hover over fields for ownership and crop information.</p>")
+
+print('<svg id="map" width="550" height="600" viewBox= "-2 -16 16 15" >')
+print('<defs><pattern id="fieldimage" x="0" y="0" height="40" width="40" patternUnits="userSpaceOnUse">')
+print('<image xlink:href="../fields.jpg" x="-15" y="-11.5" height="40" width="40" /></pattern></defs>')
+
+
+print('<rect x="-1.5" y="-4" width="3.7" height="4" fill="none" stroke="black" stroke-width="0.1" />')
+print('<rect x="-1.25" y="-2.5" width="1" height="1" fill="DarkOliveGreen" stroke="black" stroke-width="0.05" />')
+print('<circle x="-0.1" cy="-0.75" r="0.2" fill="DarkOliveGreen" />')
+print('<text x="-1.1" y="-3.1" fill="black" font-size="0.7">Legend')
+print('<tspan x="0.35" y="-2.1" fill="black" font-size="0.4">Field')
+print('<tspan x="0" y="1.6" fill="black" font-size="0.4">Boundary')
+print('<tspan x="0.35" y="-0.6" fill="black" font-size="0.4">Find</tspan></text>')
+
+print('<g transform="scale(1 -1)">')
+
+print('<rect class="field" id="field1" x="3" y="0" width="4" height="6" fill="url(#fieldimage)" stroke="black" stroke-width="0.1">')
+print('<title>Owner: Farmer Brown Crop: Peas</title></rect>')
+
+print('<rect class="field" id="field2" x="3" y="6" width="4" height="5" fill="url(#fieldimage)" stroke="black" stroke-width="0.1">')
+print("<title>Owner: Farmer Brown Crop: Oil Seed Rape</title></rect>")
+
+print('<rect class="field" id="field3" x="7" y="0" width="4" height="6" fill="url(#fieldimage)" stroke="black" stroke-width="0.1">')
+print("<title>Owner: Farmer Green Crop: Strawberries</title></rect>")
+
+print('<rect class="field" id="field4" x="7" y="6" width="4" height="5" fill="url(#fieldimage)" stroke="black" stroke-width="0.1">')
+print("<title>Owner: Farmer Black Crop: Oil Seed Rape</title></rect>")
+
+print('<rect class="field" id="field5" x="11" y="0" width="2" height="11" fill="url(#fieldimage)" stroke="black" stroke-width="0.1">')
+print("<title>Owner: Farmer Green Crop: Peas</title></rect>")
+
+print('<rect class="field" id="field6" x="7" y="11" width="6" height="4" fill="url(#fieldimage)" stroke="black" stroke-width="0.1">')
+print("<title>Owner: Farmer Black Crop: Turnips</title></rect>")
+
+print('<rect class="field" id="field7" x="4" y="12" width="2" height="3" fill="url(#fieldimage)" stroke="black" stroke-width="0.1">')
+print("<title>Owner: Farmer White Crop: Potatoes</title></rect>")
+
+print('<rect class="field" id="field8" x="1" y="12" width="3" height="4" fill="url(#fieldimage)" stroke="black" stroke-width="0.1">')
+print("<title>Owner: Farmer White Crop: Strawberries</title></rect></g>")

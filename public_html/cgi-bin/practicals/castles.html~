@@ -1,0 +1,16 @@
+Content-Type: text/html
+
+<!DOCTYPE html>
+<head>
+  <title>Templating Castles</title>
+</head>
+<body>
+
+  <p> Hello {{name}} happy Tuesday and welcome to this excellent practical</p>
+
+  <p>{{castles}}</p>
+
+  {{map}}
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Find Details</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <table class="table">
+        <tbody>
+          <tr>
+            <td>Find ID</td>
+            <td>{{Find.findId}}</td>
+          </tr>
+          <tr>
+            <td>Coordinates</td>
+            <td>({{Find.xcoord}}, {{Find.ycoord}})</td>
+          </tr>
+          <tr>
+            <td>Depth</td>
+            <td>{{Find.depth}} metres</td>
+          </tr>
+          <tr>
+            <td>Type</td>
+            <td>{{Find.type_object.name}}</td>
+          </tr>
+          <tr>
+            <td>Use</td>
+            <td>{{Find.type_object.use}}</td>
+          </tr>
+          <tr>
+            <td>Notes</td>
+            <td>{{Find.fieldNotes}}</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
